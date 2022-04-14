@@ -1,0 +1,217 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+}*stnode;
+struct node *head;
+void create(int n)
+{
+    struct node *fnode, *ptr;
+    stnode=malloc(sizeof(struct node));
+    if (stnode==NULL)
+    {
+        printf("The memory allocation has not been allocated well!!");
+    }
+    else
+    {
+        int number;
+        printf("Enter the number");
+        scanf("%d",&number);
+        stnode->data=number;
+        stnode->next=NULL;
+        ptr=stnode;
+        for(int i=2;i<n+1;i++)
+        {
+            fnode=malloc(sizeof(struct node));
+            printf("Enter the number");
+            scanf("%d",&number);
+            fnode->data=number;
+            fnode->next=NULL;
+            ptr->next=fnode;
+            ptr=ptr->next;
+        }
+    }
+}
+void mainrev()
+{
+    struct node *prenode, *curnode;
+    if(stnode != NULL)
+    {
+        prenode = stnode;
+        curnode = stnode->next;
+        stnode = stnode->next;
+        prenode->next= NULL; 
+        while(stnode != NULL)
+        {
+            stnode = stnode->next;
+            curnode->next = prenode;
+ 
+            prenode = curnode;
+            curnode = stnode;
+        }
+        stnode = prenode; 
+    }
+}
+void displayrev()
+{
+    struct node *ptr;
+    ptr=stnode->next;
+    if(stnode==NULL)
+    {
+        printf("The list is empty");
+    }
+    else{
+        struct node *temp;
+        if(stnode==NULL)
+        {
+            printf("The linked list is empty");
+        }
+        else
+        {
+            temp=stnode;
+            while(temp!=NULL)
+            {
+                printf("%d\n",temp->data);
+                temp=temp->next;
+            }
+        }
+    }
+}
+int main()
+{
+    int n;
+    printf("Enter how many nodes you wanna create");
+    scanf("%d",&n);
+    create(n);
+    mainrev();
+    displayrev();
+    
+}
+
+
+
+##################################  2nd Question 
+
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+}*stnode;
+void create(int n)
+{
+    struct node *fnode, *ptr;
+    stnode=malloc(sizeof(struct node));
+    if(stnode==NULL)
+    {
+        printf("Memory Allocation is not done properly");
+    }
+    else{
+        int number;
+        printf("enter the number");
+        scanf("%d",&number);
+        stnode->data=number;
+        stnode->next=NULL;
+        ptr=stnode;
+        for(int i=2;i<=n;i++)
+        {
+            fnode=malloc(sizeof(struct node));
+            printf("Enter the number");
+            scanf("%d",&number);
+            fnode->data=number;
+            fnode->next=NULL;
+            ptr->next=fnode;
+            ptr=ptr->next;
+        }
+        
+    }
+}
+void display()
+{
+    int count=1;
+    struct node *ptr;
+    ptr=stnode;
+    if(stnode==NULL)
+    {
+        printf("L.L is empty");
+    }
+    else
+    {
+        while(ptr->next!=NULL)
+        {
+            count+=1;
+            ptr=ptr->next;
+        }
+    }
+    printf("The count is %d",count);
+}
+int main()
+{
+    int number;
+    printf("Enter the number of nodes you want to enter");
+    scanf("%d",&number);
+    create(number);
+    display();
+    
+}
+
+
+################################## question 3
+
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct list
+{
+	int data; 
+	struct list *next;
+	struct list *prev;
+}node;
+int main(){
+	node *head=NULL,*temp,*temp1;
+	int choice,max;
+	do
+	{
+		temp=(node *)malloc(sizeof(node));
+		if(temp!=NULL)
+		{
+			printf("\nEnter the element in the list : ");
+			scanf("%d",&temp->data);
+			temp->next=NULL;
+			if(head==NULL)
+			{	
+				temp->prev=head;
+				temp->next=head;
+				head=temp;
+			}
+			else
+			{
+				temp1=head;
+				while(temp1->next!=NULL)
+				{
+					temp1=temp1->next;
+				}
+				temp1->next=temp;
+				temp->prev=temp1;
+			}
+		}
+		else
+		{
+			printf("\nnode allocation is not possible");
+		}
+		printf("\nto add more data on the list type 1 : ");
+		scanf("%d",&choice);
+	}while(choice==1);
+	temp=head;
+	max=temp->data;
+	while(temp!=NULL)
+	{
+		if(temp->data>max)
+			max=temp->data;
+		temp=temp->next;
+	}
+	printf("\nThe largest element in the list is : %d",max);
+}
